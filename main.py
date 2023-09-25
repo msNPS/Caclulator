@@ -1,6 +1,7 @@
 import customtkinter as tk
+import math
 
-class CustomTkinterApp:
+class CalculatorGUI:
     def __init__(self, master):
         self.master = master
         master.title("Add Two Numbers")
@@ -20,6 +21,15 @@ class CustomTkinterApp:
         self.button = tk.CTkButton(master, text="Add", command=self.add_numbers)
         self.button.pack(padx=50, pady=10)
 
+        self.floor_button = tk.CTkButton(master, text="Floor Answer", command=self.floor_answer)
+        self.floor_button.pack(padx=50, pady=10)
+
+        self.ceil_button = tk.CTkButton(master, text="Ceil Answer", command=self.ceil_answer)
+        self.ceil_button.pack(padx=50, pady=10)
+
+        self.sqrt_button = tk.CTkButton(master, text="Square Root", command=self.sqrt_answer)
+        self.sqrt_button.pack(padx=50, pady=10)
+
         self.result_label = tk.CTkLabel(master, text="")
         self.result_label.pack(padx=50, pady=10)
 
@@ -32,6 +42,37 @@ class CustomTkinterApp:
         except ValueError:
             self.result_label.configure(text="Only enter real or integer numbers")
 
+    def floor_answer(self):
+        try:
+            result = float(self.result_label.cget("text").split(": ")[1])
+            floor_result = math.floor(result)
+            self.result_label.configure(text=f"The sum is: {floor_result}")
+        except IndexError:
+            self.result_label.configure(text="Please add two numbers first")
+        except ValueError:
+            self.result_label.configure(text="The result is not a number")
+
+    def ceil_answer(self):
+        try:
+            result = float(self.result_label.cget("text").split(": ")[1])
+            ceil_result = math.ceil(result)
+            self.result_label.configure(text=f"The sum is: {ceil_result}")
+        except IndexError:
+            self.result_label.configure(text="Please add two numbers first")
+        except ValueError:
+            self.result_label.configure(text="The result is not a number")
+
+    def sqrt_answer(self):
+        try:
+            result = float(self.result_label.cget("text").split(": ")[1])
+            sqrt_result = math.sqrt(result)
+            self.result_label.configure(text=f"The sum is: {sqrt_result}")
+        except IndexError:
+            self.result_label.configure(text="Please add two numbers first")
+        except ValueError:
+            self.result_label.configure(text="The result is not a number")
+
+tk.set_appearance_mode("light")
 root = tk.CTk()
-app = CustomTkinterApp(root)
+app = CalculatorGUI(root)
 root.mainloop()
